@@ -2,4 +2,5 @@
 # Wrap calls to gladtex and swallow command line arguments, since
 # this is how pandoc calls us, GLADTEX_OUTPUT is set by the Makefile
 set -eu
+mkdir -p ${GLADTEX_OUTPUT} || true
 cd ${GLADTEX_OUTPUT} && gladtex -P -
