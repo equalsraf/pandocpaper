@@ -6,7 +6,7 @@ author:
 keywords: [Publishing, LaTeX, markdown]
 date: 7 December 2021
 abstract: |
-  LaTeX was my primary academic tool for a number of of years. Recent challenge to its use are the need for web publication, and easier adoption through the use of micro markup formats. I am no exception and have used markdown as a format for some of my text, but LaTeX was still the entry point for generators. In this paper we take a quick glance at the tools we use when using pandoc.
+  LaTeX was my primary academic tool for a number of years. Recent challenge to its use are the need for web publication, and easier adoption through the use of micro markup formats. I am no exception and have used markdown as a format for some of my text, but LaTeX was still the entry point for generators. In this paper we take a quick glance at the tools we use when using pandoc.
 bibliography: references.bib
 ---
 
