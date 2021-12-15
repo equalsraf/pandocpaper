@@ -1,0 +1,28 @@
+
+digraph {
+	graph[concentrate=true ];
+	node[shape="box"];
+	rankdir="LR"
+
+	userinput[shape="ellipse"];
+	userinput -> markdown [color=blue];
+	userinput -> ms [color=blue];
+	userinput -> latex [color=blue];
+	userinput -> docx [color=blue];
+
+	latex -> tex;
+	ms -> troff;
+
+	markdown -> latex;
+	markdown -> ms [color=red];
+	markdown -> html;
+
+	docx -> pdf;
+	docx -> html [color=red];
+	tex -> pdf;
+	tex -> html [color=red];
+	troff -> pdf;
+	troff -> html [color=red];
+
+
+}
