@@ -225,7 +225,7 @@ Some inner workings of pandoc help with this task. The **fail-if-warning** optio
 And it is possible to generate the intermediate TeX output when we run into problems (Section @sec:maketex).
 
 A word of warning when using a custom LaTeX template, pandoc generates a significant amount of new environment definitions.
-When upgrading pandoc you may find that you template no longer works becaus pandoc is not generating the same LaTeX as before.
+When upgrading pandoc you may find that your template no longer works becaus pandoc is not generating the same LaTeX as before.
 In such cases it is useful to investigate the default pandoc templates, available via *pandoc -D=latex*.
 
 From my perspective I don't think this setup is easier, since I still have to understand LaTeX internals to handle troubleshooting, and I had to write the LaTex/HTML templates anyway.

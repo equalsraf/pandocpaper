@@ -84,4 +84,4 @@ watchpdf:
 		inotifywait -qre close_write ${INPUT_DIR} ${MAKEFILE_LIST} ; sleep 1 ; \
 	done
 
-.PHONY: html pdf epub watch
+.PHONY: html pdf epub watchpdf watchhtml
