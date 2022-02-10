@@ -15,6 +15,8 @@ PDFOUT:=$(abspath ./out/pdf)
 
 DOT_SOURCES:=$(shell find ${INPUT_DIR} -name '*.dot')
 DOT_SOURCES:=$(foreach fname, ${DOT_SOURCES}, $(shell realpath --relative-to ${INPUT_DIR} ${fname}))
+BLOCKDIAG_SOURCES:=$(shell find ${INPUT_DIR} -name '*.blockdiag')
+BLOCKDIAG_SOURCES:=$(foreach fname, ${BLOCKDIAG_SOURCES}, $(shell realpath --relative-to ${INPUT_DIR} ${fname}))
 MD_SOURCES:=$(shell find $(INPUT_DIR) -name '*.md')
 TEMPLATE_SOURCES:=$(shell find $(TEMPLATEDIR) )
 
@@ -31,6 +33,7 @@ troubleshoot:
 	@echo "PREREQS=${.EXTRA_PREREQS}"
 	@echo "TEXINPUTS=${TEXINPUTS}"
 
+# DOT
 HTML_DOT+=$(addprefix $(HTMLOUT)/,$(DOT_SOURCES:%.dot=%.svg))
 ${HTMLOUT}/%.svg : ${INPUT_DIR}/%.dot
 	-mkdir -p $(dir $@)
@@ -40,6 +43,17 @@ ${PDFOUT}/%.pdf : ${INPUT_DIR}/%.dot
 	-mkdir -p $(dir $@)
 	dot -Tpdf -o $@ $<
 
+# BLOCKDIAG
+HTML_BLOCKDIAG+=$(addprefix $(HTMLOUT)/,$(BLOCKDIAG_SOURCES:%.blockdiag=%.svg))
+${HTMLOUT}/%.svg : ${INPUT_DIR}/%.blockdiag
+	-mkdir -p $(dir $@)
+	blockdiag -Tsvg -o $@ $<
+PDF_BLOCKDIAG+=$(addprefix $(PDFOUT)/,$(BLOCKDIAG_SOURCES:%.blockdiag=%.pdf))
+${PDFOUT}/%.pdf : ${INPUT_DIR}/%.blockdiag
+	-mkdir -p $(dir $@)
+	blockdiag --font ${TEMPLATEDIR}/DejaVuSans.ttf -Tpdf -o $@ $<
+
+
 # TARGETS
 PANDOC_ARGS=--csl=${TEMPLATEDIR}/ieee.csl --filter pandoc-xnos --metadata-file=${METADATA} --citeproc -f markdown+smart
 
@@ -48,10 +62,10 @@ ifndef DRAFT
 endif
 
 PANDOC_PDFARGS=--template=${TEMPLATEDIR}/template.tex --resource-path=${PDFOUT} --default-image-extension=pdf --pdf-engine=lualatex --listings 
-${PDFOUT}/document.pdf: ${PDF_DOT}
+${PDFOUT}/document.pdf: ${PDF_DOT} ${PDF_BLOCKDIAG}
 	pandoc ${PANDOC_ARGS} ${PANDOC_PDFARGS} -t latex -o $@ ${INPUT_FILE}
 pdf: ${PDFOUT}/document.pdf
-${PDFOUT}/document.tex: ${PDF_DOT}
+${PDFOUT}/document.tex: ${PDF_DOT} ${PDF_BLOCKDIAG}
 	pandoc ${PANDOC_ARGS} ${PANDOC_PDFARGS} -t latex -o $@ ${INPUT_FILE}
 tex: ${PDFOUT}/document.tex
 
@@ -59,7 +73,7 @@ tex: ${PDFOUT}/document.tex
 export GLADTEX_OUTPUT:=${HTMLOUT}
 PANDOC_HTMLARGS = --self-contained --filter=${TEMPLATEDIR}/pandoc-gladtex --number-sections --template=${TEMPLATEDIR}/template.html --resource-path=${HTMLOUT} --default-image-extension=svg --standalone --css=${TEMPLATEDIR}/html.css 
 
-${HTMLOUT}/document.html: ${HTML_DOT}
+${HTMLOUT}/document.html: ${HTML_DOT} ${HTML_BLOCKDIAG}
 	# Convert document to pandoc json AST, filter formulas via gladtex and then
 	# through pandoc to get html
 	pandoc ${PANDOC_ARGS} ${PANDOC_HTMLARGS} -t html -o $@ ${INPUT_FILE}

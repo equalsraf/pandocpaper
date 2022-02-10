@@ -122,9 +122,11 @@ This target continously rebuilds the pdf whenever one of the files in the source
 
 ## Pattern rulles
 
-I have pattern rules for auto generating pdf and svg versions of figures from several formats (graphviz, blockdiag).
+I have pattern rules for auto generating pdf and svg versions of figures from several formats such as graphviz (Figure @fig:diagram) or blockdiag (Figure @fig:blockdiag).
 This process is not optimal, it makes the final pdf file depend on all existing diagrams which may or may not be true.
 For html we use svg instead of pdf.
+
+![A blockdiag diagram](blocks){#fig:blockdiag}
 
 # Example
 

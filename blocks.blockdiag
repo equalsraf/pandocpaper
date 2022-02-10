@@ -1,0 +1,6 @@
+blockdiag {
+   node_width = 200;
+   node_height = 50;
+   markdown -> pdf;
+   markdown -> html;
+}
