@@ -63,6 +63,7 @@ endif
 
 PANDOC_PDFARGS=--template=${TEMPLATEDIR}/template.tex --resource-path=${PDFOUT} --default-image-extension=pdf --pdf-engine=lualatex --listings 
 ${PDFOUT}/document.pdf: ${PDF_DOT} ${PDF_BLOCKDIAG}
+	-mkdir -p $(dir $@)
 	pandoc ${PANDOC_ARGS} ${PANDOC_PDFARGS} -t latex -o $@ ${INPUT_FILE}
 pdf: ${PDFOUT}/document.pdf
 ${PDFOUT}/document.tex: ${PDF_DOT} ${PDF_BLOCKDIAG}
