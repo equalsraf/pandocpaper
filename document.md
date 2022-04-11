@@ -59,7 +59,7 @@ However further extensions add support for tables, bibliography and other requir
 The most common output format for markdown text is likely **HTML**, but tools such as **Pandoc** support conversion into multiple formats.
 
 Some of these are pretty old and but you might now have heard of troff before.
-Interestingly, IEEE still lists **Troff** as one of its preferred formats for submission, but I was unable to find any templates, and likewise you can find mentions of troff begin used for IETF RFCs [@usingtroff].
+Interestingly, IEEE still lists **Troff** as one of its preferred formats for submission, but I was unable to find any templates, and likewise you can find mentions of troff for IETF RFCs [@usingtroff].
 
 As seen in the figure, we are abstracting away details from the user, by turning these formats from user input languages to intermediate languages.
 For example the author is not concerned with the details of page layout so TeX is never used directly, instead LaTeX is used to define the structure of the document and the text or figures.
