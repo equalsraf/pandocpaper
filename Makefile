@@ -55,7 +55,7 @@ ${PDFOUT}/%.pdf : ${INPUT_DIR}/%.blockdiag
 
 
 # TARGETS
-PANDOC_ARGS=--csl=${TEMPLATEDIR}/ieee.csl --filter pandoc-xnos --metadata-file=${METADATA} --citeproc -f markdown+smart
+PANDOC_ARGS=--csl=${TEMPLATEDIR}/ieee.csl --filter pandoc-xnos --metadata-file=${METADATA} --citeproc -f markdown+smart --resource-path=${INPUT_DIR}
 
 ifndef DRAFT
 	PANDOC_ARGS+= --fail-if-warning
